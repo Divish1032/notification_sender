@@ -17,10 +17,6 @@ public class NotificationDataStore {
 		responseDataStore = new ArrayList<>();
 	}
 
-	public static void storeResponse(NotificationResponseStore responseData) {
-		responseDataStore.add(responseData);
-	}
-
 	public static ArrayList<NotificationResponseStore> fetchResponse() {
 		return responseDataStore;
 	}
@@ -32,7 +28,7 @@ public class NotificationDataStore {
 			String responseId = NotificationUtility.generateRandomId();
 			NotificationResponseStore nr = new NotificationResponseStore(responseId, clientID, message, emails[i], status,
 					requestTime);
-			NotificationDataStore.storeResponse(nr);
+			responseDataStore.add(nr);
 		}
 	}
 

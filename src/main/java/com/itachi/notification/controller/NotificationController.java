@@ -11,14 +11,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itachi.notification.exception.CustomErrorHandler;
@@ -29,16 +27,15 @@ import com.itachi.notification.payload.response.NotificationResponseStore;
 import com.itachi.notification.payload.response.SendNotificationResponseBody;
 import com.itachi.notification.service.NotificationService;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 public class NotificationController {
 
 	@Autowired
 	NotificationService notificationService;
 
-	@GetMapping("/sendNotification")
-	@ResponseBody
-	public ResponseEntity<?> create(@Valid @RequestBody NotificationRequestBody incommingData) throws ParseException {
+	@PostMapping("/sendNotification")
+	public ResponseEntity<?> sendNotification(@Valid @RequestBody NotificationRequestBody incommingData) throws ParseException {
 		NotificationContentBody[] content = incommingData.getContent();
 		Date date = new Date();
 		ArrayList<SendNotificationResponseBody> response = new ArrayList<>();

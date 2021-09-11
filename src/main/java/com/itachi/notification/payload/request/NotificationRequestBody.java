@@ -13,9 +13,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NotificationRequestBody {
+
 	@Valid
 	private NotificationContentBody [] content;
 	
 	@NotBlank
 	private String clientId;
+	
+	private String requestTime;
 }

@@ -20,10 +20,11 @@ public class PhoneService {
 	// trail account from twilio, so limited the use of the phone number message
 	public void sendPhoneMessage(String[] validPhones, String messageHeader, String data) {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-		for (int i = 0; i < validPhones.length;) {
+		System.out.println(validPhones.length);
+		for (int i = 0; i < validPhones.length; i++) {
 			Message.creator(new com.twilio.type.PhoneNumber("+91" + validPhones[i]),
 					new com.twilio.type.PhoneNumber(TRILLO_ACCOUNT_NUMBER), data).create();
-			// just to send one request as this is a free trial account.
+			// due to the error thrown by the usage of free version we can only send otp to the verified number on twilio account.
 			break;
 		}
 	}

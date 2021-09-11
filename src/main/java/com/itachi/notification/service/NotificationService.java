@@ -68,7 +68,7 @@ public class NotificationService {
 		// Max 3 attempts
 		int count = 0;
 		int maxTries = 3;
-		while (true) {
+		while (count < 3) {
 			try {
 				// mailService.sendEmail(validEmails, detail.getMessageHeader(), message);
 				dataStore.storeResponse(validEmails, clientID, message, requestTime,
@@ -92,13 +92,13 @@ public class NotificationService {
 		// Max 3 attempts
 		int count = 0;
 		int maxTries = 3;
-		while (true) {
+		while (count < 3) {
 			try {
-				// phoneService.sendPhoneMessage(validPhones, detail.getMessageHeader(), message);
+				phoneService.sendPhoneMessage(validPhones, detail.getMessageHeader(), message);
 				dataStore.storeResponse(validPhones, clientID, message, requestTime,
 						NotificationResponseStatus.Success);
 				break;
-			} catch (MailException e) {
+			} catch (Exception e) {
 				// handle exception
 				if (++count == maxTries) {
 					dataStore.storeResponse(validPhones, clientID, message, requestTime,
@@ -134,7 +134,7 @@ public class NotificationService {
 					return s.getClientId().equalsIgnoreCase(clientID)
 							&& s.getStatus().toString().equalsIgnoreCase(status)
 							&& s.getCreatedAt().after(startTimeDate) && s.getCreatedAt().before(endTimeDate);
-				} else if (status != null && (startTime != null && endTime != null)) {
+				} else if (status == null && (startTime != null && endTime != null)) {
 					Date startTimeDate = NotificationUtility.convertStringToDate(startTime);
 					Date endTimeDate = NotificationUtility.convertStringToDate(endTime);
 					return s.getClientId().equalsIgnoreCase(clientID) && s.getCreatedAt().after(startTimeDate)
